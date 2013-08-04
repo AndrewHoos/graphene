@@ -1,0 +1,247 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FE853A0517ADF959009E4B6B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE8539FC17ADF959009E4B6B /* main.cpp */; };
+		FE853A0617ADF959009E4B6B /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE8539FD17ADF959009E4B6B /* Parser.cpp */; };
+		FE853A0717ADF959009E4B6B /* SyntaxTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE8539FF17ADF959009E4B6B /* SyntaxTree.cpp */; };
+		FE853A0817ADF959009E4B6B /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE853A0117ADF959009E4B6B /* Token.cpp */; };
+		FE853A0917ADF959009E4B6B /* Tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE853A0317ADF959009E4B6B /* Tokenizer.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0451D7DB173ED9A9006E30CF /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0451D7DD173ED9AA006E30CF /* graphene */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = graphene; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE8539FC17ADF959009E4B6B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = graphene/main.cpp; sourceTree = SOURCE_ROOT; };
+		FE8539FD17ADF959009E4B6B /* Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Parser.cpp; path = graphene/Parser.cpp; sourceTree = SOURCE_ROOT; };
+		FE8539FE17ADF959009E4B6B /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parser.h; path = graphene/Parser.h; sourceTree = SOURCE_ROOT; };
+		FE8539FF17ADF959009E4B6B /* SyntaxTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SyntaxTree.cpp; path = graphene/SyntaxTree.cpp; sourceTree = SOURCE_ROOT; };
+		FE853A0017ADF959009E4B6B /* SyntaxTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SyntaxTree.h; path = graphene/SyntaxTree.h; sourceTree = SOURCE_ROOT; };
+		FE853A0117ADF959009E4B6B /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Token.cpp; path = graphene/Token.cpp; sourceTree = SOURCE_ROOT; };
+		FE853A0217ADF959009E4B6B /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Token.h; path = graphene/Token.h; sourceTree = SOURCE_ROOT; };
+		FE853A0317ADF959009E4B6B /* Tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tokenizer.cpp; path = graphene/Tokenizer.cpp; sourceTree = SOURCE_ROOT; };
+		FE853A0417ADF959009E4B6B /* Tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tokenizer.h; path = graphene/Tokenizer.h; sourceTree = SOURCE_ROOT; };
+		FE853A0A17ADF971009E4B6B /* graphene.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; name = graphene.1; path = graphene/graphene.1; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0451D7DA173ED9A9006E30CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0451D7D4173ED9A9006E30CF = {
+			isa = PBXGroup;
+			children = (
+				0451D7DF173ED9AA006E30CF /* graphene */,
+				0451D7DE173ED9AA006E30CF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0451D7DE173ED9AA006E30CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0451D7DD173ED9AA006E30CF /* graphene */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0451D7DF173ED9AA006E30CF /* graphene */ = {
+			isa = PBXGroup;
+			children = (
+				FE8539FC17ADF959009E4B6B /* main.cpp */,
+				FE8539FD17ADF959009E4B6B /* Parser.cpp */,
+				FE8539FE17ADF959009E4B6B /* Parser.h */,
+				FE8539FF17ADF959009E4B6B /* SyntaxTree.cpp */,
+				FE853A0017ADF959009E4B6B /* SyntaxTree.h */,
+				FE853A0117ADF959009E4B6B /* Token.cpp */,
+				FE853A0217ADF959009E4B6B /* Token.h */,
+				FE853A0317ADF959009E4B6B /* Tokenizer.cpp */,
+				FE853A0417ADF959009E4B6B /* Tokenizer.h */,
+				FE853A0A17ADF971009E4B6B /* graphene.1 */,
+			);
+			name = graphene;
+			path = bliss;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0451D7DC173ED9A9006E30CF /* graphene */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0451D7E6173ED9AA006E30CF /* Build configuration list for PBXNativeTarget "graphene" */;
+			buildPhases = (
+				0451D7D9173ED9A9006E30CF /* Sources */,
+				0451D7DA173ED9A9006E30CF /* Frameworks */,
+				0451D7DB173ED9A9006E30CF /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = graphene;
+			productName = bliss;
+			productReference = 0451D7DD173ED9AA006E30CF /* graphene */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0451D7D5173ED9A9006E30CF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = Mac;
+			};
+			buildConfigurationList = 0451D7D8173ED9A9006E30CF /* Build configuration list for PBXProject "graphene" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0451D7D4173ED9A9006E30CF;
+			productRefGroup = 0451D7DE173ED9AA006E30CF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0451D7DC173ED9A9006E30CF /* graphene */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0451D7D9173ED9A9006E30CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE853A0617ADF959009E4B6B /* Parser.cpp in Sources */,
+				FE853A0517ADF959009E4B6B /* main.cpp in Sources */,
+				FE853A0817ADF959009E4B6B /* Token.cpp in Sources */,
+				FE853A0717ADF959009E4B6B /* SyntaxTree.cpp in Sources */,
+				FE853A0917ADF959009E4B6B /* Tokenizer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0451D7E4173ED9AA006E30CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		0451D7E5173ED9AA006E30CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		0451D7E7173ED9AA006E30CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = graphene;
+			};
+			name = Debug;
+		};
+		0451D7E8173ED9AA006E30CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = graphene;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0451D7D8173ED9A9006E30CF /* Build configuration list for PBXProject "graphene" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0451D7E4173ED9AA006E30CF /* Debug */,
+				0451D7E5173ED9AA006E30CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0451D7E6173ED9AA006E30CF /* Build configuration list for PBXNativeTarget "graphene" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0451D7E7173ED9AA006E30CF /* Debug */,
+				0451D7E8173ED9AA006E30CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0451D7D5173ED9A9006E30CF /* Project object */;
+}
