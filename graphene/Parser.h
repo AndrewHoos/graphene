@@ -27,8 +27,8 @@ class Parser
 public:
     Parser(){};
     Parser(Tokenizer tokens):tokens(tokens){};
-    unique_ptr<ExpressionTree>  Parse();
-    friend unique_ptr<ExpressionTree> operator>>(Tokenizer tokens, Parser &parser);
+    ExpressionTreePtr  Parse();
+    friend ExpressionTreePtr operator>>(Tokenizer tokens, Parser &parser);
 };
 
 #endif /* defined(__bliss__Parser__) */
