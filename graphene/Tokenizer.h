@@ -15,12 +15,14 @@
 #include <map>
 #include <string>
 
+using namespace std;
+
 class Tokenizer
 {
-    std::queue<Token> tokens;
-    std::map<std::string,token_id> keywords;
+    queue<Token> tokens;
+    map<string,token_id> keywords;
 public:
-    friend std::istream& operator>>(std::istream &in, Tokenizer &tokenizer);
+    friend istream& operator>>(istream &in, Tokenizer &tokenizer);
     Tokenizer();
     Token getToken();
 };
