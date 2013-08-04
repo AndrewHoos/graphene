@@ -22,7 +22,7 @@ int main(int argc, const char * argv[])
     Parser parse = Parser(tokenizer);
     unique_ptr<ExpressionTree> tree = parse.Parse();
     
-  std::cout << tree->logTree();
+    std::cout << tree->logTree();
   
     std::cout << "done";
     // insert code here...
