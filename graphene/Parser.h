@@ -14,13 +14,14 @@
 #include "Tokenizer.h"
 
 using namespace std;
+typedef unique_ptr<ExpressionTree> ExpressionTreePtr;
 
 class Parser
 {
     Token currentToken;
     Tokenizer tokens;
-    unique_ptr<ExpressionTree> parsePrimary();
-    unique_ptr<ExpressionTree> parseBinary(unique_ptr<ExpressionTree> leftTree,int precidence);
+    ExpressionTreePtr parsePrimary();
+    ExpressionTreePtr parseBinary(ExpressionTreePtr leftTree,int precidence);
     Token readToken();
     
 public:

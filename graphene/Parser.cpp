@@ -10,7 +10,7 @@
 bool isPrimary(Token possible);
 int tokenPrecedence(Token token);
 
-unique_ptr<ExpressionTree> operator>>(Tokenizer &tokens, Parser &parser)
+ExpressionTreePtr operator>>(Tokenizer &tokens, Parser &parser)
 {
   parser = Parser(tokens);
   return parser.Parse();
@@ -21,14 +21,14 @@ Token Parser::readToken()
   return this->currentToken = tokens.getToken();
 }
 
-unique_ptr<ExpressionTree> Parser::Parse()
+ExpressionTreePtr Parser::Parse()
 {
   this->readToken();
   
   
   while (currentToken.ID() != tok_eof)
   {
-    unique_ptr<ExpressionTree> tree = nullptr;
+    ExpressionTreePtr tree = nullptr;
     while (currentToken.ID() !=tok_newline)
     {
       tree = move(this->parsePrimary());
@@ -48,10 +48,10 @@ unique_ptr<ExpressionTree> Parser::Parse()
     }
     return tree;
   }
-  return unique_ptr<ExpressionTree> (new ExpressionTree());
+  return ExpressionTreePtr (new ExpressionTree());
 }
 
-unique_ptr<ExpressionTree> Parser::parseBinary(unique_ptr<ExpressionTree> leftExpression,int precedence)
+ExpressionTreePtr Parser::parseBinary(ExpressionTreePtr leftExpression,int precedence)
 {
   //assume the next token should be an operator or newline
   if(currentToken.ID() != tok_binop)
@@ -67,26 +67,26 @@ unique_ptr<ExpressionTree> Parser::parseBinary(unique_ptr<ExpressionTree> leftEx
   {
     //parse error
   }
-  unique_ptr<ExpressionTree> rightExpression = parsePrimary();
+  ExpressionTreePtr rightExpression = parsePrimary();
   
   //If there is no more opps then we have a newline and we return
   if(currentToken.ID() == tok_newline)
   {
-    return unique_ptr<ExpressionTree> (new BinaryOpTree(lop.content(), move(leftExpression), move(rightExpression)));
+    return ExpressionTreePtr (new BinaryOpTree(lop.content(), move(leftExpression), move(rightExpression)));
   }
   if(currentToken.precedence() > lop.precedence())
   {
-    return unique_ptr<ExpressionTree> (new BinaryOpTree(lop.content(), move(leftExpression), parseBinary(move(rightExpression), -1)));
+    return ExpressionTreePtr (new BinaryOpTree(lop.content(), move(leftExpression), parseBinary(move(rightExpression), -1)));
   }
   else
   {
-    return parseBinary(unique_ptr<ExpressionTree> (new BinaryOpTree(lop.content(),move(leftExpression),move(rightExpression))), lop.precedence());
+    return parseBinary(ExpressionTreePtr (new BinaryOpTree(lop.content(),move(leftExpression),move(rightExpression))), lop.precedence());
   }
 }
 
-unique_ptr<ExpressionTree> Parser::parsePrimary()
+ExpressionTreePtr Parser::parsePrimary()
 {
-  unique_ptr<ExpressionTree> exp(new ExpressionTree());
+  ExpressionTreePtr exp(new ExpressionTree());
   
   Token prefixToken;
   bool prefix = false;
@@ -99,15 +99,15 @@ unique_ptr<ExpressionTree> Parser::parsePrimary()
   }
   if (currentToken.ID() == tok_identifier)
   {
-    exp = unique_ptr<ExpressionTree> (new IdentifierTree(currentToken.content()));
+    exp = ExpressionTreePtr (new IdentifierTree(currentToken.content()));
   }
   else if (currentToken.ID() == tok_integer)
   {
-    exp = unique_ptr<ExpressionTree> (new IntegerTree(std::stoi(currentToken.content())));
+    exp = ExpressionTreePtr (new IntegerTree(std::stoi(currentToken.content())));
   }
   else if (currentToken.ID() == tok_float)
   {
-    exp = unique_ptr<ExpressionTree>(new FloatTree(std::stof(currentToken.content())));
+    exp = ExpressionTreePtr(new FloatTree(std::stof(currentToken.content())));
   }
   else
   {
@@ -115,12 +115,12 @@ unique_ptr<ExpressionTree> Parser::parsePrimary()
   }
   if(prefix)
   {
-    exp = unique_ptr<ExpressionTree>(new UnaryOpTree(prefixToken.content(), true, move(exp)));
+    exp = ExpressionTreePtr(new UnaryOpTree(prefixToken.content(), true, move(exp)));
   }
   this->readToken();
   if(currentToken.ID() == tok_unop)
   {
-    exp = unique_ptr<ExpressionTree>(new UnaryOpTree(currentToken.content(), false, move(exp)));
+    exp = ExpressionTreePtr(new UnaryOpTree(currentToken.content(), false, move(exp)));
   }
   return exp;
 }
