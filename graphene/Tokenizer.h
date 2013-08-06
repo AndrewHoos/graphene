@@ -19,12 +19,22 @@ using namespace std;
 
 class Tokenizer
 {
-    queue<Token> tokens;
-    map<string,token_id> keywords;
+  queue<Token> tokens;
+  map<string,token_id> keywords;
+  void tokenizeIndent(string const newIndent);
+  void tokenizeDedent(string const newIndent);
+  void tokenizeIndentation(string const newIndent);
+  void tokenizeAToken(string & word);
+  
+  Token currentToken;
+  
+  string currentIndent;
+  string indentSize;
+
 public:
-    friend istream& operator>>(istream &in, Tokenizer &tokenizer);
-    Tokenizer();
-    Token getToken();
+  friend istream& operator>>(istream &in, Tokenizer &tokenizer);
+  Tokenizer();
+  Token getToken();
 };
 
 
