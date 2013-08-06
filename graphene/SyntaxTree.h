@@ -18,7 +18,8 @@ class ExpressionTree
 {
 public:
   ExpressionTree(){};
-  virtual string logTree(){return "";};
+  virtual string logTree(){return this->logTree("");};
+  virtual string logTree(string prefix){return prefix;};
 };
 
 class IntegerTree : public ExpressionTree
@@ -77,8 +78,8 @@ public:
   };
   string logTree(string prefix){
     string rVal = prefix + "BinopTree: " + binOp + "\n";
-    rVal += prefix + "  " + leftTree->logTree() + "\n";
-    rVal += prefix + "  " + rightTree->logTree() + "\n";
+    rVal += prefix + leftTree->logTree(prefix + "  ");
+    rVal += prefix + rightTree->logTree(prefix + "  ");
     return rVal;
   };
 
