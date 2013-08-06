@@ -13,20 +13,14 @@
 #include "SyntaxTree.h"
 int main(int argc, const char * argv[])
 {
-    
-    
-    
-    Token t = Token(tok_identifier, "Test");
-    Tokenizer tokenizer = Tokenizer();
-    while(std::cin >> tokenizer);
-    Parser parse = Parser(tokenizer);
-    unique_ptr<ExpressionTree> tree = parse.Parse();
-    
-    std::cout << tree->logTree();
+  Token t = Token(tok_identifier, "Test");
+  Tokenizer tokenizer = Tokenizer();
+  while(std::cin >> tokenizer);
+  Parser parse = Parser(tokenizer);
+  unique_ptr<ExpressionTree> tree = parse.Parse();
   
-    std::cout << "done";
-    // insert code here...
-    //std::cout << t;
-    return 0;
-}
+  std::cout << tree->logTree();
 
+  std::cout << "done";
+  return 0;
+}
