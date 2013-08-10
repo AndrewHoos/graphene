@@ -13,7 +13,7 @@ int tokenPrecedence(Token token);
 ExpressionTreePtr operator>>(Tokenizer &tokens, Parser &parser)
 {
   parser = Parser(tokens);
-  return parser.Parse();
+  return parser.parse();
 }
 
 Token Parser::readToken()
@@ -21,7 +21,7 @@ Token Parser::readToken()
   return this->currentToken = tokens.getToken();
 }
 
-ExpressionTreePtr Parser::Parse()
+ExpressionTreePtr Parser::parse()
 {
   this->readToken();
   
@@ -49,6 +49,28 @@ ExpressionTreePtr Parser::Parse()
     return tree;
   }
   return ExpressionTreePtr (new ExpressionTree());
+}
+
+ExpressionTreePtr Parser::parseFile()
+{
+  return nullptr
+}
+
+ExpressionTreePtr Parser::parseLine()
+{
+  ExpressionTreePtr line = nullptr;
+  
+  if(currentToken.ID() !=  tok_newline)
+  {
+    cerr << "parseLine: Expected a newline token";
+    cerr << "Received ID: " << currentToken.ID() << endl;
+    cerr << "Content: " << currentToken.content() << endl;
+    exit(1);
+  }
+  
+  // parse and return the
+  ;
+  return line;
 }
 
 ExpressionTreePtr Parser::parseBinary(ExpressionTreePtr leftExpression,int precedence)

@@ -17,7 +17,7 @@ int main(int argc, const char * argv[])
   Tokenizer tokenizer = Tokenizer();
   while(std::cin >> tokenizer);
   Parser parse = Parser(tokenizer);
-  unique_ptr<ExpressionTree> tree = parse.Parse();
+  unique_ptr<ExpressionTree> tree = parse.parse();
   
   std::cout << tree->logTree();
 

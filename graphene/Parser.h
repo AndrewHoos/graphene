@@ -18,17 +18,20 @@ typedef unique_ptr<ExpressionTree> ExpressionTreePtr;
 
 class Parser
 {
-    Token currentToken;
-    Tokenizer tokens;
-    ExpressionTreePtr parsePrimary();
-    ExpressionTreePtr parseBinary(ExpressionTreePtr leftTree,int precidence);
-    Token readToken();
-    
+  Token currentToken;
+  Tokenizer tokens;
+  ExpressionTreePtr parsePrimary();
+  ExpressionTreePtr parseBinary(ExpressionTreePtr leftTree,int precidence);
+  Token readToken();
+  
 public:
-    Parser(){};
-    Parser(Tokenizer tokens):tokens(tokens){};
-    ExpressionTreePtr  Parse();
-    friend ExpressionTreePtr operator>>(Tokenizer tokens, Parser &parser);
+  Parser(){};
+  Parser(Tokenizer tokens):tokens(tokens){};
+  ExpressionTreePtr parse();
+  ExpressionTreePtr parseFile();
+  ExpressionTreePtr parseBlock();
+  ExpressionTreePtr parseLine();
+  friend ExpressionTreePtr operator>>(Tokenizer tokens, Parser &parser);
 };
 
 #endif /* defined(__bliss__Parser__) */
