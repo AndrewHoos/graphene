@@ -20,6 +20,10 @@ class Parser
 {
   Token currentToken;
   Tokenizer tokens;
+  ExpressionTreePtr parseFile();
+  ExpressionTreePtr parseBlock();
+  ExpressionTreePtr parseLine();
+  ExpressionTreePtr parseExpression();
   ExpressionTreePtr parsePrimary();
   ExpressionTreePtr parseBinary(ExpressionTreePtr leftTree,int precidence);
   Token readToken();
@@ -28,9 +32,6 @@ public:
   Parser(){};
   Parser(Tokenizer tokens):tokens(tokens){};
   ExpressionTreePtr parse();
-  ExpressionTreePtr parseFile();
-  ExpressionTreePtr parseBlock();
-  ExpressionTreePtr parseLine();
   friend ExpressionTreePtr operator>>(Tokenizer tokens, Parser &parser);
 };
 

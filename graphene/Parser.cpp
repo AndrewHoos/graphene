@@ -76,17 +76,7 @@ ExpressionTreePtr Parser::parseLine()
   
   if(currentToken.isPrimary())
   {
-    line = parsePrimary();
-    if (currentToken.ID() == tok_binop)
-    {
-      line = parseBinary(move(line), -1);
-    }
-    else if (currentToken.ID() != tok_newline)
-    {
-      cerr << "parseLine: expected an newline or binop token" << endl;
-      cerr << "ID: " << currentToken.ID() << " Content: " << currentToken.content() << endl;
-      exit(1);
-    }
+    line = parseExpression();
   }
   else if(currentToken.ID() == tok_indent)
   {
@@ -103,31 +93,41 @@ ExpressionTreePtr Parser::parseLine()
   return line;
 }
 
+//this method called on primary
+//this method returns on end of expression
+ExpressionTreePtr Parser::parseExpression()
+{
+  //parse primary reads the next token
+  ExpressionTreePtr leftExpression = parsePrimary();
+  
+  //if the next token is not a binop the we are done
+  if(currentToken.ID() != tok_binop)
+  {
+    return leftExpression;
+  }
+  
+  return parseBinary(move(leftExpression), -1);
+}
+
+
 //this method called on binop
-//this method returns on newline
+//this method returns on newline or non binop
 ExpressionTreePtr Parser::parseBinary(ExpressionTreePtr leftExpression,int precedence)
 {
   //save this op we need to compare
   Token lop = currentToken;
   
-  Token rightToken = this->readToken();
-  if(!rightToken.isPrimary())
+  readToken();
+  if(!currentToken.isPrimary())
   {
     //parse error
   }
   ExpressionTreePtr rightExpression = parsePrimary();
   
   //If there is no more opps then we have a newline and we return
-  if(currentToken.ID() == tok_newline)
-  {
-    return ExpressionTreePtr (new BinaryOpTree(lop.content(), move(leftExpression), move(rightExpression)));
-  }
-  //if the next token is not a binop
   if(currentToken.ID() != tok_binop)
   {
-    cerr << "parseLine: expected an newline or binop token" << endl;
-    cerr << "ID: " << currentToken.ID() << " Content: " << currentToken.content() << endl;
-    exit(1);
+    return ExpressionTreePtr (new BinaryOpTree(lop.content(), move(leftExpression), move(rightExpression)));
   }
   else if(currentToken.precedence() > lop.precedence())
   {
