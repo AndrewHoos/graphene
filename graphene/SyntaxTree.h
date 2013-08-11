@@ -10,9 +10,12 @@
 #define __bliss__SyntaxTree__
 
 #include <iostream>
+#include <vector>
 
+class ExpressionTree;
 
 using namespace std;
+typedef unique_ptr<ExpressionTree> ExpressionTreePtr;
 
 class ExpressionTree
 {
@@ -67,10 +70,10 @@ public:
 class BinaryOpTree : public ExpressionTree
 {
   string binOp;
-  unique_ptr<ExpressionTree> leftTree;
-  unique_ptr<ExpressionTree> rightTree;
+  ExpressionTreePtr leftTree;
+  ExpressionTreePtr rightTree;
 public:
-  BinaryOpTree(string const op, unique_ptr<ExpressionTree> left, unique_ptr<ExpressionTree> right)
+  BinaryOpTree(string const op, ExpressionTreePtr left, ExpressionTreePtr right)
   : binOp(op),leftTree(move(left)),rightTree(move(right)){};
   string logTree()
   {
@@ -89,9 +92,9 @@ class UnaryOpTree: public ExpressionTree
 {
   string unOp;
   bool prefix;
-  unique_ptr<ExpressionTree> expression;
+  ExpressionTreePtr expression;
 public:
-  UnaryOpTree(string const unOp, bool prefix, unique_ptr<ExpressionTree> expression)
+  UnaryOpTree(string const unOp, bool prefix, ExpressionTreePtr expression)
   : unOp(unOp),prefix(prefix),expression(move(expression)){};
   string logTree()
   {
@@ -101,6 +104,45 @@ public:
     string rVal = prefix + "UnopTree: " + unOp + "\n";
     rVal += prefix + "  " + expression->logTree() + "\n";
     return rVal;
+  };
+};
+
+class BlockTree: public ExpressionTree
+{
+  vector<ExpressionTreePtr> statements;
+public:
+  void push(ExpressionTreePtr exp){statements.push_back(move(exp));};
+  string logTree()
+  {
+    return this->logTree("");
+  };
+  string logTree(string prefix){
+    string rString = prefix + "Block Tree:\n";
+    for(ExpressionTreePtr &expression : statements)
+    {
+      rString += expression->logTree(prefix + "  ");
+    }
+    return rString;
+  };
+};
+
+
+class FileTree: public ExpressionTree
+{
+  vector<ExpressionTreePtr> statements;
+  public:
+  void push(ExpressionTreePtr exp){statements.push_back(move(exp));};
+  string logTree()
+  {
+    return this->logTree("");
+  };
+  string logTree(string prefix){
+    string rString = prefix + "File Tree:\n";
+    for(ExpressionTreePtr &expression : statements)
+    {
+      rString += expression->logTree(prefix + "  ");
+    }
+    return rString;
   };
 };
 
