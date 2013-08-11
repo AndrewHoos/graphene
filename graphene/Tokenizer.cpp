@@ -114,7 +114,7 @@ void Tokenizer::tokenizeAToken(string & word)
   smatch match;
   
   regex identifier("^[[:alpha:]](_|[[:alnum:]])*");
-  regex binop("^[-\\+\\*/=\\^\\.]");// - + * / = ^ .
+  regex binop("^(==)|(\\+)|(\\*)|(/)|(=)|(\\^)|(\\.)");// - + * / = ^ .
   regex unop("^(\\+|-|\\+\\+|--|!)");// + - ++ -- !
   regex newline("^\\n");
   regex integer("^([1-9][0-9]*)|(0x[1-9a-f][0-9a-f]*)|(0[1-7][0-7]*)|(0)");
@@ -130,6 +130,7 @@ void Tokenizer::tokenizeAToken(string & word)
     else
     {
       currentToken = Token(tok_identifier, match[0]);
+      
     }
     word = regex_replace(word, identifier, "");
   }
@@ -189,6 +190,9 @@ Tokenizer::Tokenizer()
   keywords["space"] = tok_space;
   keywords["struct"] = tok_struct;
   keywords["interface"] = tok_interface;
+  keywords["if"] = tok_if;
+  keywords["then"] = tok_then;
+  keywords["else"] = tok_else;
   tokens = queue<Token>();
 }
 
