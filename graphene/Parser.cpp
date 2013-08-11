@@ -23,24 +23,27 @@ Token Parser::readToken()
 
 ExpressionTreePtr Parser::parse()
 {
-  this->readToken();
   return parseFile();
 }
 
-//returns on current token == eof
+//this method called on current token == null
+//this method returns on current token == EOF
 ExpressionTreePtr Parser::parseFile()
 {
-  unique_ptr<FileTree> block(new FileTree);
+  unique_ptr<FileTree> file(new FileTree);
   
+  readToken();
   while (currentToken.ID() != tok_eof)
   {
-    block->push(parseLine());
+    file->push(parseLine());
+    readToken();
   }
-  return move(block);
+  return move(file);
 }
 
 
-//return on current token == dedent
+//this method called on current token == indent
+//this method returns on current token == dedent
 ExpressionTreePtr Parser::parseBlock()
 {
   if(currentToken.ID() != tok_indent)
@@ -48,10 +51,19 @@ ExpressionTreePtr Parser::parseBlock()
     cerr << "parseBlock: expected an indent token" << endl;
     cerr << "ID: " << currentToken.ID() << " Content: " << currentToken.content() << endl;
   }
-  return nullptr;
+  unique_ptr<BlockTree> block(new BlockTree);
+  
+  readToken();
+  while (currentToken.ID() != tok_dedent)
+  {
+    block->push(parseLine());
+    readToken();
+  }
+  return move(block);
 }
 
-
+//this method is called after consuming a newline token
+//this method returns after encountering a newline token
 ExpressionTreePtr Parser::parseLine()
 {
   //skip all the empty newline
@@ -60,24 +72,41 @@ ExpressionTreePtr Parser::parseLine()
     readToken();
   }
   
-  ExpressionTreePtr line = parsePrimary();
-  //skip empty newline
-  while(currentToken.ID() == tok_newline)
+  ExpressionTreePtr line = nullptr;
+  
+  if(currentToken.isPrimary())
   {
-    readToken();
+    line = parsePrimary();
+    if (currentToken.ID() == tok_binop)
+    {
+      line = parseBinary(move(line), -1);
+    }
+    else if (currentToken.ID() != tok_newline)
+    {
+      cerr << "parseLine: expected an newline or binop token" << endl;
+      cerr << "ID: " << currentToken.ID() << " Content: " << currentToken.content() << endl;
+      exit(1);
+    }
+  }
+  else if(currentToken.ID() == tok_indent)
+  {
+    line = parseBlock();
+  }
+  else if(currentToken.ID() == tok_if)
+  {
+      //TODO parse
+  }
+  else if(currentToken.ID() == tok_class)
+  {
+    
   }
   return line;
 }
 
+//this method called on binop
+//this method returns on newline
 ExpressionTreePtr Parser::parseBinary(ExpressionTreePtr leftExpression,int precedence)
 {
-  //assume the next token should be an operator
-  if(currentToken.ID() != tok_binop)
-  {
-    std::cerr << "parseBinary: unexpected token" << endl;
-    std::cerr << "ID: " << currentToken.ID() << " Content: " <<currentToken.content() << endl;
-  }
-  
   //save this op we need to compare
   Token lop = currentToken;
   
@@ -93,7 +122,14 @@ ExpressionTreePtr Parser::parseBinary(ExpressionTreePtr leftExpression,int prece
   {
     return ExpressionTreePtr (new BinaryOpTree(lop.content(), move(leftExpression), move(rightExpression)));
   }
-  if(currentToken.precedence() > lop.precedence())
+  //if the next token is not a binop
+  if(currentToken.ID() != tok_binop)
+  {
+    cerr << "parseLine: expected an newline or binop token" << endl;
+    cerr << "ID: " << currentToken.ID() << " Content: " << currentToken.content() << endl;
+    exit(1);
+  }
+  else if(currentToken.precedence() > lop.precedence())
   {
     return ExpressionTreePtr (new BinaryOpTree(lop.content(), move(leftExpression), parseBinary(move(rightExpression), -1)));
   }
@@ -103,6 +139,8 @@ ExpressionTreePtr Parser::parseBinary(ExpressionTreePtr leftExpression,int prece
   }
 }
 
+//This method called on isPrimary
+//This method returns on end after unop? primary unop?
 ExpressionTreePtr Parser::parsePrimary()
 {
   ExpressionTreePtr exp(new ExpressionTree());
@@ -110,40 +148,47 @@ ExpressionTreePtr Parser::parsePrimary()
   Token prefixToken;
   bool prefix = false;
   
+  //store prefix
   if(currentToken.ID() == tok_unop)
   {
     prefix = true;
     prefixToken = currentToken;
-    this->readToken();
+    readToken();
   }
+  
+  //handle literal/identifier
   if (currentToken.ID() == tok_identifier)
   {
     exp = ExpressionTreePtr (new IdentifierTree(currentToken.content()));
+    readToken();
   }
   else if (currentToken.ID() == tok_integer)
   {
     exp = ExpressionTreePtr (new IntegerTree(std::stoi(currentToken.content())));
+    readToken();
   }
   else if (currentToken.ID() == tok_float)
   {
     exp = ExpressionTreePtr(new FloatTree(std::stof(currentToken.content())));
-  }
-  else if (currentToken.ID() == tok_if)
-  {
-    //TODO: add a parse float token
+    readToken();
   }
   else
   {
     std::cerr << "unexpected tokens in parsePrimary" << std::endl;
   }
+  
+  //handle prefix
   if(prefix)
   {
     exp = ExpressionTreePtr(new UnaryOpTree(prefixToken.content(), true, move(exp)));
   }
-  this->readToken();
+  
+  //handle postfix
   if(currentToken.ID() == tok_unop)
   {
     exp = ExpressionTreePtr(new UnaryOpTree(currentToken.content(), false, move(exp)));
+    readToken();
   }
+  
   return exp;
 }
