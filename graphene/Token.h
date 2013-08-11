@@ -31,7 +31,10 @@ typedef enum
   tok_unsused = -16,
   tok_newline = -17,
   tok_indent = -18,
-  tok_dedent = -19
+  tok_dedent = -19,
+  tok_if = -20,
+  tok_then = -21,
+  tok_else = -22
 } token_id;
 
 
