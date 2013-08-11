@@ -114,7 +114,7 @@ void Tokenizer::tokenizeAToken(string & word)
   smatch match;
   
   regex identifier("^[[:alpha:]](_|[[:alnum:]])*");
-  regex binop("^(==)|(\\+)|(\\*)|(/)|(=)|(\\^)|(\\.)");// - + * / = ^ .
+  regex binop("^((==)|(\\+)|(\\*)|(/)|(=)|(\\^)|(\\.))");// - + * / = ^ .
   regex unop("^(\\+|-|\\+\\+|--|!)");// + - ++ -- !
   regex newline("^\\n");
   regex integer("^([1-9][0-9]*)|(0x[1-9a-f][0-9a-f]*)|(0[1-7][0-7]*)|(0)");
