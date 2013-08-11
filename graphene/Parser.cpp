@@ -24,61 +24,58 @@ Token Parser::readToken()
 ExpressionTreePtr Parser::parse()
 {
   this->readToken();
-  
+  return parseFile();
+}
+
+//returns on current token == eof
+ExpressionTreePtr Parser::parseFile()
+{
+  unique_ptr<FileTree> block(new FileTree);
   
   while (currentToken.ID() != tok_eof)
   {
-    ExpressionTreePtr tree = nullptr;
-    while (currentToken.ID() !=tok_newline)
-    {
-      tree = move(this->parsePrimary());
-      if(currentToken.ID() == tok_newline)
-      {
-        return tree;
-      }
-      else if (currentToken.ID() == tok_binop)
-      {
-        return parseBinary(move(tree), -1);
-      }
-      else
-      {
-        std::cerr << "unexpected token in Parse";
-      }
-      std::cout << tree->logTree();
-    }
-    return tree;
+    block->push(parseLine());
   }
-  return ExpressionTreePtr (new ExpressionTree());
+  return move(block);
 }
 
-ExpressionTreePtr Parser::parseFile()
+
+//return on current token == dedent
+ExpressionTreePtr Parser::parseBlock()
 {
-  return nullptr
+  if(currentToken.ID() != tok_indent)
+  {
+    cerr << "parseBlock: expected an indent token" << endl;
+    cerr << "ID: " << currentToken.ID() << " Content: " << currentToken.content() << endl;
+  }
+  return nullptr;
 }
+
 
 ExpressionTreePtr Parser::parseLine()
 {
-  ExpressionTreePtr line = nullptr;
-  
-  if(currentToken.ID() !=  tok_newline)
+  //skip all the empty newline
+  while(currentToken.ID() == tok_newline)
   {
-    cerr << "parseLine: Expected a newline token";
-    cerr << "Received ID: " << currentToken.ID() << endl;
-    cerr << "Content: " << currentToken.content() << endl;
-    exit(1);
+    readToken();
   }
   
-  // parse and return the
-  ;
+  ExpressionTreePtr line = parsePrimary();
+  //skip empty newline
+  while(currentToken.ID() == tok_newline)
+  {
+    readToken();
+  }
   return line;
 }
 
 ExpressionTreePtr Parser::parseBinary(ExpressionTreePtr leftExpression,int precedence)
 {
-  //assume the next token should be an operator or newline
+  //assume the next token should be an operator
   if(currentToken.ID() != tok_binop)
   {
-    std::cerr << "expected binop";
+    std::cerr << "parseBinary: unexpected token" << endl;
+    std::cerr << "ID: " << currentToken.ID() << " Content: " <<currentToken.content() << endl;
   }
   
   //save this op we need to compare
@@ -130,6 +127,10 @@ ExpressionTreePtr Parser::parsePrimary()
   else if (currentToken.ID() == tok_float)
   {
     exp = ExpressionTreePtr(new FloatTree(std::stof(currentToken.content())));
+  }
+  else if (currentToken.ID() == tok_if)
+  {
+    //TODO: add a parse float token
   }
   else
   {
